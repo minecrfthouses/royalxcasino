@@ -12,12 +12,14 @@ export default async function Home(){
         <h1>{g.title}</h1>
         <p className="lead">{g.shortDesc}</p>
         <div className="actions">
-          <a className="btn gold" href={g.downloadUrl||"#"}>Download {g.title}</a>
-          <a className="btn outline" href="/blog">Read our blog</a>
+          <a className="btn gold pill" href="#">Login</a>
+          <a className="btn outline pill" href="#">Register</a>
         </div>
       </div>
       <div className="heroImage"><img src={g.image||"/logo.svg"} alt={g.title}/></div>
-    </div></section>
+    </div>
+    <div className="container"><a className="btn gold pill heroCta" href={g.downloadUrl||"#"}>Download {g.title} & Get Bonus</a></div>
+    </section>
     <section className="section"><div className="container">
       <div className="kicker">App information</div>
       <h2>{g.title} at a glance</h2>
