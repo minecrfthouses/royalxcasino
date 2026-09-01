@@ -1,0 +1,3 @@
+export const dynamic = "force-dynamic";
+import{prisma}from"@/lib/prisma";import Link from"next/link";
+export default async function Games(){const gs=await prisma.game.findMany({include:{category:true},orderBy:{updatedAt:"desc"}});return <><div className="adminTop"><div><h1>Games</h1><p>Add and manage games.</p></div><Link className="btn gold" href="/admin/games/new">Add Game</Link></div><table className="table"><thead><tr><th>Title</th><th>Category</th><th>Status</th><th></th></tr></thead><tbody>{gs.map(g=><tr key={g.id}><td>{g.title}<br/><small>{g.slug}</small></td><td>{g.category?.name||"-"}</td><td>{g.status}</td><td><Link className="btn outline" href={`/admin/games/${g.id}`}>Edit</Link></td></tr>)}</tbody></table></>}

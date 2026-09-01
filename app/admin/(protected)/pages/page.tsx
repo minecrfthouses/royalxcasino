@@ -1,0 +1,3 @@
+export const dynamic = "force-dynamic";
+import{prisma}from"@/lib/prisma";import Link from"next/link";
+export default async function Pages(){const ps=await prisma.page.findMany({orderBy:{updatedAt:"desc"}});return <><div className="adminTop"><div><h1>Pages</h1><p>Manage CMS pages.</p></div><Link className="btn gold" href="/admin/pages/new">Add Page</Link></div><table className="table"><thead><tr><th>Title</th><th>Slug</th><th>Status</th><th></th></tr></thead><tbody>{ps.map(p=><tr key={p.id}><td>{p.title}</td><td>{p.slug}</td><td>{p.status}</td><td><Link className="btn outline" href={`/admin/pages/${p.id}`}>Edit</Link></td></tr>)}</tbody></table></>}
