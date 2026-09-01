@@ -1,3 +1,33 @@
-import {prisma} from "@/lib/prisma";import Link from "next/link";
+import {prisma} from "@/lib/prisma";import JsonLd from "@/components/JsonLd";
 export const dynamic="force-dynamic";
-export default async function Games(){const gs=await prisma.game.findMany({where:{status:"PUBLISHED"},include:{category:true},orderBy:{updatedAt:"desc"}});return <main><div className="container breadcrumb">Home / Games</div><section className="section"><div className="container"><div className="kicker">Game library</div><h1>Games</h1><div className="gameGrid">{gs.map(g=><Link className="gameCard" href={`/games/${g.slug}`} key={g.id}><img src={g.image||"/logo.svg"} alt={g.title}/><div className="gameBody"><span className="tag">{g.category?.name||"Game"}</span><h3>{g.title}</h3><p>{g.shortDesc}</p></div></Link>)}</div></div></section></main>}
+export default async function Home(){
+  const g=await prisma.game.findFirst({where:{status:"PUBLISHED"},orderBy:[{isFeatured:"desc"},{sortOrder:"asc"},{createdAt:"desc"}],include:{category:true,seo:true}});
+  if(!g){
+    return <main><section className="section"><div className="container"><h1>Coming soon</h1><p className="lead">Add a published game/app in the admin panel to populate this page.</p></div></section></main>
+  }
+  return <main>
+    <section className="hero"><div className="container heroGrid">
+      <div>
+        <div className="kicker">{g.category?.name||"App"}</div>
+        <h1>{g.title}</h1>
+        <p className="lead">{g.shortDesc}</p>
+        <div className="actions">
+          <a className="btn gold" href={g.downloadUrl||"#"}>Download {g.title}</a>
+          <a className="btn outline" href="/blog">Read our blog</a>
+        </div>
+      </div>
+      <div className="heroImage"><img src={g.image||"/logo.svg"} alt={g.title}/></div>
+    </div></section>
+    <section className="section"><div className="container">
+      <div className="kicker">App information</div>
+      <h2>{g.title} at a glance</h2>
+      <table className="infoTable"><tbody>
+        {[["App Name",g.title],["Version",g.version],["File Size",g.fileSize],["Category",g.category?.name],["Developer",g.developer]].map(x=><tr key={x[0]}><td>{x[0]}</td><td>{x[1]||"Not specified"}</td></tr>)}
+      </tbody></table>
+    </div></section>
+    <section className="section soft"><div className="container article">
+      <div dangerouslySetInnerHTML={{__html:g.description||"<p>Details coming soon.</p>"}}/>
+    </div></section>
+    <JsonLd data={{"@context":"https://schema.org","@type":"SoftwareApplication","name":g.title,"description":g.shortDesc||g.title,"applicationCategory":"GameApplication","operatingSystem":"Android","softwareVersion":g.version||undefined}}/>
+  </main>
+}

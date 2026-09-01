@@ -1,3 +1,0 @@
-import {prisma} from "@/lib/prisma";import Link from "next/link";
-export const dynamic="force-dynamic";
-export default async function Games(){const gs=await prisma.game.findMany({where:{status:"PUBLISHED"},include:{category:true},orderBy:{updatedAt:"desc"}});return <main><div className="container breadcrumb">Home / Games</div><section className="section"><div className="container"><div className="kicker">Game library</div><h1>Games</h1><div className="gameGrid">{gs.map(g=><Link className="gameCard" href={`/games/${g.slug}`} key={g.id}><img src={g.image||"/logo.svg"} alt={g.title}/><div className="gameBody"><span className="tag">{g.category?.name||"Game"}</span><h3>{g.title}</h3><p>{g.shortDesc}</p></div></Link>)}</div></div></section></main>}
