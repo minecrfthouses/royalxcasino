@@ -50,7 +50,10 @@
 .article ol.stepChevron li::before{content:"\276F";counter-increment:none;background:transparent;color:var(--gold);border:2px solid var(--gold);border-radius:50%;font-size:13px;font-weight:900;box-sizing:border-box}
 
 .article ol.stepCheck{counter-reset:none}
-.article ol.stepCheck li::before{content:"\2713";counter-increment:none;background:#151515;color:var(--gold);border-radius:50%;font-size:12px;font-weight:900}
+.article ol.stepCheck li::before{content:"\2713";counter-increment:none;background:transparent;color:var(--gold);border:2px solid var(--gold);border-radius:50%;font-size:12px;font-weight:900;box-sizing:border-box}
+
+.article ol.stepCross{counter-reset:none}
+.article ol.stepCross li::before{content:"\2715";counter-increment:none;background:transparent;color:var(--gold);border:2px solid var(--gold);border-radius:50%;font-size:12px;font-weight:900;box-sizing:border-box}
 
 .article ol.stepDouble{counter-reset:none}
 .article ol.stepDouble li::before{content:"\00BB";counter-increment:none;background:var(--gold);color:#151515;border-radius:6px;font-size:14px;font-weight:900}
