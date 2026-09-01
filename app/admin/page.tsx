@@ -1,0 +1,3 @@
+export const dynamic = "force-dynamic";
+import{prisma}from"@/lib/prisma";
+export default async function Dashboard(){const[a,b,c,d]=await Promise.all([prisma.game.count(),prisma.post.count(),prisma.page.count(),prisma.category.count()]);return <><div className="adminTop"><div><h1>Dashboard</h1><p>Manage your website.</p></div></div><div className="stats">{[["Games",a],["Posts",b],["Pages",c],["Categories",d]].map(x=><div className="card" key={x[0]}><p>{x[0]}</p><h2>{x[1]}</h2></div>)}</div><div className="card" style={{marginTop:20}}><h2>Production checklist</h2><ul><li>Use HTTPS.</li><li>Use a strong AUTH_SECRET and admin password.</li><li>Back up MySQL.</li><li>Review all download links and uploads.</li><li>Replace starter legal content.</li></ul></div></>}
