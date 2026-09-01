@@ -103,6 +103,17 @@ model Page {
   updatedAt DateTime @updatedAt
 }
 
+model Media {
+  id        Int      @id @default(autoincrement())
+  url       String
+  type      String
+  filename  String
+  size      Int?
+  createdAt DateTime @default(now())
+
+  @@index([type])
+}
+
 model SeoMetadata {
   id            Int     @id @default(autoincrement())
   title         String?
