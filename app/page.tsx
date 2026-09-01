@@ -1,4 +1,4 @@
-import {prisma} from "@/lib/prisma";import JsonLd from "@/components/JsonLd";
+import {prisma} from "@/lib/prisma";import JsonLd from "@/components/JsonLd";import {injectToc} from "@/lib/toc";
 export const dynamic="force-dynamic";
 export default async function Home(){
   const g=await prisma.game.findFirst({where:{status:"PUBLISHED"},orderBy:[{isFeatured:"desc"},{sortOrder:"asc"},{createdAt:"desc"}],include:{category:true,seo:true}});
@@ -26,7 +26,7 @@ export default async function Home(){
       </tbody></table>
     </div></section>
     <section className="section soft"><div className="container article">
-      <div dangerouslySetInnerHTML={{__html:g.description||"<p>Details coming soon.</p>"}}/>
+      <div dangerouslySetInnerHTML={{__html:injectToc(g.description||"<p>Details coming soon.</p>")}}/>
     </div></section>
     <JsonLd data={{"@context":"https://schema.org","@type":"SoftwareApplication","name":g.title,"description":g.shortDesc||g.title,"applicationCategory":"GameApplication","operatingSystem":"Android","softwareVersion":g.version||undefined}}/>
   </main>
