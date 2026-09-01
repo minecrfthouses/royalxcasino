@@ -1,2 +1,0 @@
-export const dynamic = "force-dynamic";
-import GameForm from "@/components/admin/GameForm";import{prisma}from"@/lib/prisma";import{notFound}from"next/navigation";export default async function Edit({params}:{params:Promise<{id:string}>}){const{id}=await params;const g=await prisma.game.findUnique({where:{id:Number(id)},include:{seo:true}});if(!g)notFound();return <><h1>Edit Game</h1><GameForm categories={await prisma.category.findMany({orderBy:{name:"asc"}})} game={g}/></>}

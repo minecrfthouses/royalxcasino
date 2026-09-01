@@ -1,2 +1,0 @@
-export const dynamic = "force-dynamic";
-import PageForm from "@/components/admin/PageForm";import{prisma}from"@/lib/prisma";import{notFound}from"next/navigation";export default async function Edit({params}:{params:Promise<{id:string}>}){const{id}=await params;const p=await prisma.page.findUnique({where:{id:Number(id)},include:{seo:true}});if(!p)notFound();return <><h1>Edit Page</h1><PageForm page={p}/></>}

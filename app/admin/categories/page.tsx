@@ -1,2 +1,0 @@
-export const dynamic = "force-dynamic";
-import{prisma}from"@/lib/prisma";export default async function Categories(){const cs=await prisma.category.findMany({include:{_count:{select:{games:true}}},orderBy:{name:"asc"}});return <><h1>Categories</h1><table className="table"><thead><tr><th>Name</th><th>Slug</th><th>Games</th></tr></thead><tbody>{cs.map(c=><tr key={c.id}><td>{c.name}</td><td>{c.slug}</td><td>{c._count.games}</td></tr>)}</tbody></table></>}
