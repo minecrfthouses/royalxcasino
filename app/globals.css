@@ -4187,62 +4187,82 @@ h3 {
 
 
 /* =========================================================
-   47. HERO STRUCTURE FIX — REFERENCE ALIGNMENT ONLY
-   Keeps the existing Royal X colors, typography, effects,
-   spacing language and button styling.
-
-   DOM note:
-   .heroImage contains BOTH the image and .heroCta.
-   display: contents lets those two elements participate
-   directly in .heroGrid so the CTA can sit below BOTH
-   columns, matching the reference structure.
+   47. HERO REFERENCE STRUCTURE — FINAL POSITION FIX
+   Layout only: preserves the existing Royal X visual design.
+   Desktop:
+   - text + image share the first row
+   - Login/Register remain under the text
+   - Download CTA is a full-width second row
    ========================================================= */
 
 @media (min-width: 1051px) {
 
   .heroGrid {
-    grid-template-columns: minmax(0, 1.65fr) minmax(300px, .9fr);
-    gap: 42px;
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(330px, .82fr);
+    grid-template-rows: auto auto;
+    column-gap: clamp(45px, 7vw, 90px);
+    row-gap: 24px;
     align-items: center;
   }
 
+  /* The CTA must not be constrained by the image column.
+     This works whether .heroCta is inside .heroImage or is
+     a sibling of it. */
   .heroImage {
-    display: contents;
+    position: static !important;
+    display: contents !important;
+    min-width: 0;
   }
 
   .heroImage img {
-    grid-column: 2;
-    grid-row: 1;
+    grid-column: 2 !important;
+    grid-row: 1 !important;
     justify-self: center;
     align-self: center;
   }
 
   .heroCta {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    justify-self: stretch;
-    width: 100%;
-    margin: 24px 0 0;
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    justify-self: stretch !important;
+    align-self: start;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+  }
+
+  /* Keep the CTA below the content instead of vertically
+     centering the entire hero around it. */
+  .hero {
+    align-items: start;
   }
 }
 
 
-/* Tablet/mobile: restore normal wrapper behavior so the
-   existing responsive flow is preserved. */
+/* Tablet/mobile keep the original responsive behavior. */
 @media (max-width: 1050px) {
+  .hero {
+    align-items: center;
+  }
 
   .heroImage {
-    display: flex;
+    position: relative !important;
+    display: flex !important;
   }
 
   .heroImage img {
-    grid-column: auto;
-    grid-row: auto;
+    grid-column: auto !important;
+    grid-row: auto !important;
   }
 
   .heroCta {
-    grid-column: auto;
-    grid-row: auto;
-    width: min(100%, 380px);
+    grid-column: auto !important;
+    grid-row: auto !important;
+    width: min(100%, 380px) !important;
+    max-width: 380px !important;
+    margin-top: 20px !important;
   }
 }
