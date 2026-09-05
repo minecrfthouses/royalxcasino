@@ -1059,11 +1059,11 @@ h3 {
 
   padding: 17px 20px 19px;
 
-  color: #f5a524 !important;
+  color: #FBBA49 !important;
 
   text-shadow:
     0 0 18px
-      rgba(245,165,36,.35);
+      rgba(251,186,73,.35);
 
   background:
     linear-gradient(
@@ -1239,13 +1239,13 @@ h3 {
 
   padding: 18px 21px;
 
-  color: #070000;
+  color: #FBBA49;
 
   background:
     linear-gradient(
       135deg,
-      rgba(245,165,36,.23),
-      rgba(245,165,36,.08)
+      #0d0d0d,
+      #070000
     );
 
   font-size: 16px;
