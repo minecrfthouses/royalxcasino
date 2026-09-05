@@ -1,14 +1,3 @@
-/* =========================================================
-   ROYAL X CASINO
-   NEON ROYAL GAMING THEME
-   Complete drop-in style.css
-   ========================================================= */
-
-
-/* =========================================================
-   01. DESIGN TOKENS
-   ========================================================= */
-
 :root {
 
   /* Main backgrounds */
@@ -443,110 +432,72 @@ body::before {
 
 
 /* =========================================================
-   09. HERO
+   09. HERO — single source of truth
+   (Sections that previously existed here — the original
+   09/10/11/12 hero rules, the Section 46 "P999-style"
+   rewrite, and the "P999 ALIGNMENT — CLEAN FINAL" !important
+   overrides — have been removed and replaced by this one
+   block so there is exactly one rule per property.)
    ========================================================= */
 
 .hero {
-
   position: relative;
-
-  min-height: 590px;
-
-  display: flex;
-
-  align-items: center;
-
   overflow: hidden;
-
-  padding: 80px 0 90px;
-
+  padding: 45px 0 55px;
   background:
-    radial-gradient(
-      ellipse at 72% 35%,
-      rgba(124,58,237,.28),
-      transparent 30%
-    ),
-    radial-gradient(
-      ellipse at 88% 75%,
-      rgba(236,72,153,.14),
-      transparent 25%
-    ),
-    linear-gradient(
-      135deg,
-      #05050b 0%,
-      #090916 45%,
-      #100b1e 100%
-    );
-
-  border-bottom:
-    1px solid rgba(168,85,247,.15);
+    radial-gradient(ellipse at 72% 35%, rgba(124,58,237,.28), transparent 30%),
+    radial-gradient(ellipse at 88% 75%, rgba(236,72,153,.14), transparent 25%),
+    linear-gradient(135deg, #05050b 0%, #090916 45%, #100b1e 100%);
+  border-bottom: 1px solid rgba(168,85,247,.15);
 }
 
 .hero::before {
-
   content: "";
-
   position: absolute;
-
-  width: 500px;
-  height: 500px;
-
-  top: -260px;
-  right: -180px;
-
+  width: 500px; height: 500px;
+  top: -260px; right: -180px;
   border-radius: 50%;
-
-  border:
-    1px solid
-      rgba(168,85,247,.15);
-
-  box-shadow:
-    0 0 100px
-      rgba(124,58,237,.08);
+  border: 1px solid rgba(168,85,247,.15);
+  box-shadow: 0 0 100px rgba(124,58,237,.08);
 }
 
 .hero::after {
-
   content: "";
-
   position: absolute;
-
-  width: 300px;
-  height: 300px;
-
-  left: -180px;
-  bottom: -190px;
-
+  width: 300px; height: 300px;
+  left: -180px; bottom: -190px;
   border-radius: 50%;
-
-  background:
-    rgba(236,72,153,.07);
-
+  background: rgba(236,72,153,.07);
   filter: blur(50px);
 }
 
 .heroGrid {
-
   position: relative;
-
   z-index: 2;
+  width: min(var(--max-width), calc(100% - 34px));
+  margin-inline: auto;
 
   display: grid;
-
-  grid-template-columns:
-    minmax(0, 1.25fr)
-    minmax(300px, .75fr);
-
-  gap: 70px;
-
-  align-items: center;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "text"
+    "image"
+    "cta";
+  row-gap: 28px;
+  text-align: left;
 }
 
+.heroText  { grid-area: text;  min-width: 0; }
+.heroImage {
+  grid-area: image;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.heroCta   { grid-area: cta; }
 
-/* =========================================================
-   10. HERO CONTENT
-   ========================================================= */
-
+/* --- text column --- */
 .kicker {
 
   display: inline-flex;
@@ -579,6 +530,8 @@ body::before {
   box-shadow:
     0 0 20px
       rgba(245,196,81,.05);
+
+  margin-bottom: 14px;
 }
 
 .kicker::before {
@@ -598,37 +551,16 @@ body::before {
 
 
 h1 {
-
-  margin: 17px 0 20px;
-
-  max-width: 760px;
-
   color: #fff;
-
-  font-size:
-    clamp(40px, 6vw, 72px);
-
-  line-height: 1.01;
-
-  letter-spacing: -2.8px;
-
   font-weight: 950;
 }
 
 .hero h1 {
-
-  background:
-    linear-gradient(
-      135deg,
-      #fff 25%,
-      #e8dcff 55%,
-      #c084fc 100%
-    );
-
-  -webkit-background-clip: text;
-  background-clip: text;
-
-  -webkit-text-fill-color: transparent;
+  margin: 0;
+  max-width: none;
+  font-size: clamp(32px, 9vw, 44px);
+  line-height: 1.05;
+  letter-spacing: -1.4px;
 }
 
 h2 {
@@ -652,19 +584,19 @@ h3 {
 }
 
 .lead {
-
-  max-width: 720px;
-
   color: var(--muted);
+}
 
-  font-size: 17px;
-
-  line-height: 1.85;
+.hero .lead {
+  max-width: none;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 
 /* =========================================================
-   11. BUTTONS
+   10. BUTTONS
    ========================================================= */
 
 .actions {
@@ -676,6 +608,11 @@ h3 {
   gap: 12px;
 
   margin-top: 30px;
+}
+
+.hero .actions {
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .btn {
@@ -805,114 +742,67 @@ h3 {
   padding-inline: 28px;
 }
 
+.hero .actions .btn {
+  flex: 1 1 0;
+  min-width: 110px;
+}
+
+/* --- CTA --- */
 .heroCta {
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-
-  margin-top: 22px;
-
-  padding: 16px 20px;
-
+  min-height: 48px;
+  padding: 14px 20px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 
 /* =========================================================
-   12. HERO IMAGE
+   11. HERO IMAGE
    ========================================================= */
 
-.heroImage {
-
-  position: relative;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-}
-
 .heroImage::before {
-
   content: "";
-
   position: absolute;
-
-  width: 330px;
-  height: 330px;
-
+  width: 200px; height: 200px;
   border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(124,58,237,.25),
-      rgba(236,72,153,.08) 45%,
-      transparent 70%
-    );
-
+  background: radial-gradient(circle, rgba(124,58,237,.25), rgba(236,72,153,.08) 45%, transparent 70%);
   filter: blur(5px);
-
-  animation:
-    royalPulse 5s ease-in-out infinite;
+  animation: royalPulse 5s ease-in-out infinite;
 }
 
 .heroImage::after {
-
   content: "ROYAL";
-
   position: absolute;
-
   color: rgba(245,196,81,.08);
-
-  font-size: 100px;
-
+  font-size: 54px;
   font-weight: 950;
-
-  letter-spacing: 8px;
-
+  letter-spacing: 5px;
   transform: rotate(-18deg);
-
   pointer-events: none;
+  z-index: 0;
 }
 
 .heroImage img {
-
   position: relative;
-
   z-index: 2;
-
-  width: 275px;
-  height: 275px;
-
+  width: 150px; height: 150px;
   object-fit: cover;
-
-  border-radius: 30px;
-
-  border:
-    1px solid
-      rgba(245,196,81,.40);
-
+  border-radius: 22px;
+  border: 1px solid rgba(245,196,81,.40);
   box-shadow:
-    0 30px 70px
-      rgba(0,0,0,.60),
-    0 0 0 8px
-      rgba(124,58,237,.07),
-    0 0 60px
-      rgba(124,58,237,.25);
-
-  transform:
-    perspective(900px)
-    rotateY(-5deg)
-    rotateX(2deg);
-
-  animation:
-    royalFloat 6s ease-in-out infinite;
+    0 30px 70px rgba(0,0,0,.60),
+    0 0 0 8px rgba(124,58,237,.07),
+    0 0 60px rgba(124,58,237,.25);
+  animation: royalFloat 6s ease-in-out infinite;
 }
 
 
 /* =========================================================
-   13. ANIMATIONS
+   12. ANIMATIONS
    ========================================================= */
 
 @keyframes royalPulse {
@@ -951,7 +841,7 @@ h3 {
 
 
 /* =========================================================
-   14. SECTIONS
+   13. SECTIONS
    ========================================================= */
 
 .section {
@@ -1048,7 +938,7 @@ h3 {
 
 
 /* =========================================================
-   15. SECTION HEADINGS
+   14. SECTION HEADINGS
    ========================================================= */
 
 .section h2,
@@ -1087,7 +977,7 @@ h3 {
 
 
 /* =========================================================
-   16. ARTICLE
+   15. ARTICLE
    ========================================================= */
 
 .article {
@@ -1139,7 +1029,7 @@ h3 {
 
 
 /* =========================================================
-   17. ARTICLE H2
+   16. ARTICLE H2
    ========================================================= */
 
 .article h2 {
@@ -1209,7 +1099,7 @@ h3 {
 
 
 /* =========================================================
-   18. ARTICLE H3
+   17. ARTICLE H3
    ========================================================= */
 
 .article h3 {
@@ -1253,7 +1143,7 @@ h3 {
 
 
 /* =========================================================
-   19. TABLE OF CONTENTS
+   18. TABLE OF CONTENTS
    ========================================================= */
 
 .toc {
@@ -1412,7 +1302,7 @@ h3 {
 
 
 /* =========================================================
-   20. INFO TABLE
+   19. INFO TABLE
    ========================================================= */
 
 .infoTable {
@@ -1482,7 +1372,7 @@ h3 {
 
 
 /* =========================================================
-   21. GENERIC CARDS
+   20. GENERIC CARDS
    ========================================================= */
 
 .card {
@@ -1563,7 +1453,7 @@ h3 {
 
 
 /* =========================================================
-   22. FEATURE GRID
+   21. FEATURE GRID
    ========================================================= */
 
 .featureGrid {
@@ -1775,7 +1665,7 @@ h3 {
 
 
 /* =========================================================
-   23. GRIDS
+   22. GRIDS
    ========================================================= */
 
 .grid4 {
@@ -1800,7 +1690,7 @@ h3 {
 
 
 /* =========================================================
-   24. GAME CARDS
+   23. GAME CARDS
    ========================================================= */
 
 .gameGrid {
@@ -1951,7 +1841,7 @@ h3 {
 
 
 /* =========================================================
-   25. STEPS
+   24. STEPS
    ========================================================= */
 
 .steps {
@@ -2064,7 +1954,7 @@ h3 {
 
 
 /* =========================================================
-   26. ARTICLE LISTS
+   25. ARTICLE LISTS
    ========================================================= */
 
 .article ul:not(.prosConsList):not(.tocList) {
@@ -2180,7 +2070,7 @@ h3 {
 
 
 /* =========================================================
-   27. PROS / CONS
+   26. PROS / CONS
    ========================================================= */
 
 .prosConsWrap {
@@ -2348,7 +2238,7 @@ h3 {
 
 
 /* =========================================================
-   28. FAQ
+   27. FAQ
    ========================================================= */
 
 .faq {
@@ -2495,7 +2385,7 @@ h3 {
 
 
 /* =========================================================
-   29. PAYMENT CARDS
+   28. PAYMENT CARDS
    ========================================================= */
 
 .paymentGrid {
@@ -2571,7 +2461,7 @@ h3 {
 
 
 /* =========================================================
-   30. BONUS CARDS
+   29. BONUS CARDS
    ========================================================= */
 
 .bonusGrid {
@@ -2672,7 +2562,7 @@ h3 {
 
 
 /* =========================================================
-   31. SECURITY CARDS
+   30. SECURITY CARDS
    ========================================================= */
 
 .securityGrid {
@@ -2742,7 +2632,7 @@ h3 {
 
 
 /* =========================================================
-   32. NOTICE / ALERT
+   31. NOTICE / ALERT
    ========================================================= */
 
 .notice,
@@ -2824,7 +2714,7 @@ h3 {
 
 
 /* =========================================================
-   33. CTA
+   32. CTA (page-level promo box, NOT the hero CTA)
    ========================================================= */
 
 .ctaBox {
@@ -2908,7 +2798,7 @@ h3 {
 
 
 /* =========================================================
-   34. FOOTER
+   33. FOOTER
    ========================================================= */
 
 .footer {
@@ -3002,7 +2892,7 @@ h3 {
 
 
 /* =========================================================
-   35. ADMIN
+   34. ADMIN
    ========================================================= */
 
 .admin {
@@ -3126,7 +3016,7 @@ h3 {
 
 
 /* =========================================================
-   36. FORMS
+   35. FORMS
    ========================================================= */
 
 .formGrid {
@@ -3222,7 +3112,7 @@ h3 {
 
 
 /* =========================================================
-   37. TABLE
+   36. TABLE
    ========================================================= */
 
 .table {
@@ -3279,7 +3169,7 @@ h3 {
 
 
 /* =========================================================
-   38. MEDIA
+   37. MEDIA
    ========================================================= */
 
 .mediaGrid {
@@ -3369,7 +3259,7 @@ h3 {
 
 
 /* =========================================================
-   39. LOGIN
+   38. LOGIN
    ========================================================= */
 
 .login {
@@ -3425,37 +3315,10 @@ h3 {
 
 
 /* =========================================================
-   40. RESPONSIVE TABLET
+   39. RESPONSIVE TABLET (non-hero grids)
    ========================================================= */
 
 @media (max-width: 1050px) {
-
-  .heroGrid {
-
-    grid-template-columns: 1fr;
-
-    gap: 40px;
-
-    text-align: center;
-  }
-
-  .heroImage {
-    order: -1;
-  }
-
-  .heroImage img {
-
-    width: 210px;
-    height: 210px;
-  }
-
-  .lead {
-    margin-inline: auto;
-  }
-
-  .actions {
-    justify-content: center;
-  }
 
   .featureGrid,
   .gameGrid,
@@ -3506,7 +3369,50 @@ h3 {
 
 
 /* =========================================================
-   41. MOBILE
+   40. HERO — DESKTOP (≥1051px)
+   Two columns (text / image) + full-width CTA row below.
+   ========================================================= */
+
+@media (min-width: 1051px) {
+  .heroGrid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+    grid-template-areas:
+      "text  image"
+      "cta   cta";
+    column-gap: 70px;
+    row-gap: 34px;
+    align-items: center;
+  }
+
+  .hero h1   { font-size: clamp(40px, 6vw, 72px); letter-spacing: -2.8px; max-width: 680px; }
+  .hero .lead { max-width: 590px; font-size: 17px; line-height: 1.8; }
+  .hero .actions { max-width: 400px; }
+  .hero .actions .btn { flex: 0 1 auto; min-width: 118px; }
+
+  .heroImage::before { width: 330px; height: 330px; }
+  .heroImage::after  { font-size: 100px; letter-spacing: 8px; }
+  .heroImage img {
+    width: 275px; height: 275px;
+    border-radius: 30px;
+    transform: perspective(900px) rotateY(-5deg) rotateX(2deg);
+  }
+
+  .heroCta { max-width: 420px; margin-inline: auto; }
+}
+
+
+/* =========================================================
+   41. HERO — TABLET (768–1050px)
+   ========================================================= */
+
+@media (min-width: 768px) and (max-width: 1050px) {
+  .hero h1 { font-size: clamp(38px, 6vw, 52px); }
+  .heroImage img { width: 210px; height: 210px; }
+}
+
+
+/* =========================================================
+   42. MOBILE (non-hero rules)
    ========================================================= */
 
 @media (max-width: 680px) {
@@ -3542,66 +3448,6 @@ h3 {
 
   .mobile {
     display: block;
-  }
-
-  /* Hero */
-
-  .hero {
-
-    min-height: auto;
-
-    padding:
-      45px 0 55px;
-  }
-
-  .heroGrid {
-    gap: 30px;
-  }
-
-  .heroImage img {
-
-    width: 160px;
-    height: 160px;
-
-    border-radius: 22px;
-  }
-
-  .heroImage::before {
-
-    width: 230px;
-    height: 230px;
-  }
-
-  h1 {
-
-    margin-top: 15px;
-
-    font-size: 37px;
-
-    letter-spacing:
-      -1.5px;
-  }
-
-  h2 {
-    font-size: 25px;
-  }
-
-  .lead {
-
-    font-size: 15px;
-
-    line-height: 1.8;
-  }
-
-  .actions {
-
-    flex-direction: column;
-
-    width: 100%;
-  }
-
-  .actions .btn {
-    width: 100%;
   }
 
   /* Sections */
@@ -3734,7 +3580,7 @@ h3 {
     padding: 21px;
   }
 
-  /* CTA */
+  /* CTA (page promo box) */
 
   .ctaBox {
 
@@ -3798,7 +3644,7 @@ h3 {
 
 
 /* =========================================================
-   42. SMALL PHONES
+   43. SMALL PHONES (non-hero rules)
    ========================================================= */
 
 @media (max-width: 390px) {
@@ -3808,10 +3654,6 @@ h3 {
 
     width:
       calc(100% - 18px);
-  }
-
-  h1 {
-    font-size: 31px;
   }
 
   h2 {
@@ -3837,7 +3679,41 @@ h3 {
 
 
 /* =========================================================
-   43. ACCESSIBILITY
+   44. HERO — SMALL PHONES (≤390px)
+   ========================================================= */
+
+@media (max-width: 390px) {
+  .hero h1 { font-size: 30px; letter-spacing: -1px; }
+  .hero .lead { font-size: 13px; }
+  .heroImage img { width: 130px; height: 130px; }
+  .heroCta { font-size: 13px; padding: 12px 16px; }
+}
+
+
+/* =========================================================
+   45. HERO TEXT — SOLID WHITE
+   (background/gradients/buttons untouched, only hero text
+   color changes for readability)
+   ========================================================= */
+
+.hero h1,
+.hero h2,
+.hero p,
+.hero .kicker,
+.hero .lead {
+  color: #ffffff;
+}
+
+.hero h1 {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: #ffffff;
+}
+
+
+/* =========================================================
+   46. ACCESSIBILITY
    ========================================================= */
 
 :focus-visible {
@@ -3851,7 +3727,7 @@ h3 {
 
 
 /* =========================================================
-   44. REDUCED MOTION
+   47. REDUCED MOTION
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
@@ -3875,7 +3751,7 @@ h3 {
 
 
 /* =========================================================
-   45. PRINT
+   48. PRINT
    ========================================================= */
 
 @media print {
@@ -3909,669 +3785,5 @@ h3 {
 
   .article {
     width: 100%;
-  }
-}
-
-/* =========================================================
-   46. ROYAL X HERO — P999-STYLE LAYOUT
-   Hero only. All other website sections remain unchanged.
-   ========================================================= */
-
-/* Main hero: cleaner two-column composition */
-.hero {
-  min-height: 570px;
-  padding: 70px 0 78px;
-  display: flex;
-  align-items: center;
-}
-
-/* Keep the hero balanced instead of giving the text too much width */
-.heroGrid {
-  width: min(var(--max-width), calc(100% - 34px));
-  margin-inline: auto;
-  grid-template-columns: minmax(0, 1fr) minmax(330px, .82fr);
-  gap: clamp(45px, 7vw, 90px);
-  align-items: center;
-}
-
-/* Left side */
-.heroGrid > :first-child {
-  min-width: 0;
-}
-
-.hero h1 {
-  max-width: 680px;
-  margin-top: 12px;
-  font-size: clamp(42px, 5.4vw, 68px);
-  line-height: 1.02;
-  letter-spacing: -2.4px;
-}
-
-.hero .lead {
-  max-width: 590px;
-  margin-top: 18px;
-  font-size: 16px;
-  line-height: 1.75;
-}
-
-/* Login / Register buttons */
-.hero .actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 27px;
-}
-
-.hero .actions .btn {
-  min-width: 118px;
-}
-
-/* Right side: image + compact download button */
-.heroImage {
-  min-width: 0;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 0;
-}
-
-/* Make the Royal X artwork the visual focus */
-.heroImage img {
-  width: clamp(220px, 24vw, 285px);
-  height: clamp(220px, 24vw, 285px);
-  border-radius: 28px;
-  box-shadow:
-    0 30px 75px rgba(0,0,0,.60),
-    0 0 0 8px rgba(124,58,237,.07),
-    0 0 70px rgba(124,58,237,.27);
-}
-
-/* Softer decorative glow */
-.heroImage::before {
-  width: clamp(260px, 29vw, 350px);
-  height: clamp(260px, 29vw, 350px);
-}
-
-/* Keep the decorative ROYAL text behind the image */
-.heroImage::after {
-  font-size: clamp(70px, 8vw, 100px);
-  z-index: 0;
-}
-
-/* P999-style compact CTA instead of a huge stretched pill */
-.heroCta {
-  position: relative;
-  z-index: 4;
-  width: min(100%, 365px);
-  min-height: 52px;
-  margin: 24px auto 0;
-  padding: 14px 22px;
-  border-radius: 999px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 900;
-  box-shadow:
-    0 12px 35px rgba(245,196,81,.18);
-}
-
-/* Prevent long CTA text from becoming oversized */
-.heroCta.btn {
-  white-space: normal;
-}
-
-/* Desktop hover polish */
-.heroCta:hover {
-  transform: translateY(-3px);
-}
-
-
-/* =========================================================
-   HERO TABLET
-   ========================================================= */
-
-@media (max-width: 1050px) {
-
-  .hero {
-    min-height: auto;
-    padding: 60px 0 70px;
-  }
-
-  .heroGrid {
-    width: min(var(--max-width), calc(100% - 34px));
-    grid-template-columns: 1fr;
-    gap: 38px;
-    text-align: center;
-  }
-
-  .heroImage {
-    order: -1;
-  }
-
-  .heroImage img {
-    width: 235px;
-    height: 235px;
-  }
-
-  .heroImage::before {
-    width: 295px;
-    height: 295px;
-  }
-
-  .hero .lead {
-    margin-inline: auto;
-  }
-
-  .hero .actions {
-    justify-content: center;
-  }
-
-  .heroCta {
-    width: min(100%, 380px);
-  }
-}
-
-
-/* =========================================================
-   HERO MOBILE
-   ========================================================= */
-
-@media (max-width: 680px) {
-
-  .hero {
-    padding: 42px 0 52px;
-  }
-
-  .heroGrid {
-    width: calc(100% - 22px);
-    gap: 28px;
-  }
-
-  .heroImage {
-    padding: 0;
-  }
-
-  .heroImage img {
-    width: 175px;
-    height: 175px;
-    border-radius: 22px;
-  }
-
-  .heroImage::before {
-    width: 225px;
-    height: 225px;
-  }
-
-  .heroImage::after {
-    font-size: 54px;
-    letter-spacing: 5px;
-  }
-
-  .hero h1 {
-    margin-top: 10px;
-    font-size: clamp(34px, 10vw, 44px);
-    line-height: 1.05;
-    letter-spacing: -1.5px;
-  }
-
-  .hero .lead {
-    max-width: 560px;
-    margin-top: 15px;
-    font-size: 15px;
-    line-height: 1.7;
-  }
-
-  .hero .actions {
-    flex-direction: row;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 23px;
-  }
-
-  .hero .actions .btn {
-    min-width: 125px;
-  }
-
-  .heroCta {
-    width: min(100%, 350px);
-    margin-top: 20px;
-    padding: 13px 18px;
-    font-size: 13px;
-  }
-}
-
-
-/* =========================================================
-   HERO SMALL PHONES
-   ========================================================= */
-
-@media (max-width: 390px) {
-
-  .hero {
-    padding: 35px 0 45px;
-  }
-
-  .heroGrid {
-    width: calc(100% - 18px);
-    gap: 24px;
-  }
-
-  .heroImage img {
-    width: 155px;
-    height: 155px;
-  }
-
-  .heroImage::before {
-    width: 205px;
-    height: 205px;
-  }
-
-  .hero h1 {
-    font-size: 31px;
-    letter-spacing: -1.1px;
-  }
-
-  .hero .lead {
-    font-size: 14px;
-  }
-
-  .hero .actions .btn {
-    min-width: 112px;
-    padding-inline: 16px;
-  }
-
-  .heroCta {
-    width: 100%;
-    font-size: 12.5px;
-  }
-}
-
-
-/* =========================================================
-   P999 ALIGNMENT — CLEAN FINAL
-   Built from the ORIGINAL Royal X CSS.
-
-   Mobile reference:
-   Header remains unchanged.
-   Hero content:
-   1) kicker
-   2) heading
-   3) paragraph
-   4) Login
-   5) Register
-   6) centered image
-   7) Download CTA
-
-   Critical fix:
-   Download CTA is returned to NORMAL FLOW on mobile.
-   It must never float beside the paragraph.
-   ========================================================= */
-
-/* Clear white hero text without touching background design. */
-.hero,
-.hero p,
-.hero a,
-.hero span,
-.hero button,
-.hero h1,
-.hero h2,
-.hero h3,
-.hero h4,
-.hero h5,
-.hero h6 {
-  color: #fff !important;
-}
-
-.hero h1 {
-  background: none !important;
-  -webkit-background-clip: initial !important;
-  background-clip: initial !important;
-  -webkit-text-fill-color: #fff !important;
-}
-
-/* ---------------------------------------------------------
-   DESKTOP — two columns + CTA below the entire row
-   --------------------------------------------------------- */
-@media (min-width: 1051px) {
-
-  .hero {
-    min-height: 406px !important;
-    height: 406px !important;
-    padding: 28px 0 70px !important;
-    display: block !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-  }
-
-  .heroGrid {
-    width: calc(100% - 64px) !important;
-    max-width: none !important;
-    margin: 0 32px !important;
-
-    display: grid !important;
-    grid-template-columns: minmax(0, 60%) minmax(0, 29%) !important;
-    column-gap: 11% !important;
-    row-gap: 0 !important;
-
-    align-items: center !important;
-    position: static !important;
-  }
-
-  .heroGrid > :first-child {
-    width: 100% !important;
-    min-width: 0 !important;
-  }
-
-  .hero .lead {
-    max-width: 775px !important;
-  }
-
-  .hero .actions {
-    width: 100% !important;
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    gap: 32px !important;
-  }
-
-  .hero .actions .btn {
-    min-width: 0 !important;
-    flex: 1 1 0 !important;
-  }
-
-  .heroImage {
-    width: 100% !important;
-    min-width: 0 !important;
-    position: relative !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  .heroImage img {
-    width: 225px !important;
-    height: 225px !important;
-    max-width: 225px !important;
-    max-height: 225px !important;
-  }
-
-  /*
-   * Works whether .heroCta is directly inside .heroGrid
-   * or nested in .heroImage.
-   */
-  .heroCta {
-    position: absolute !important;
-    z-index: 20 !important;
-
-    left: 32px !important;
-    right: 32px !important;
-    bottom: 6px !important;
-
-    width: auto !important;
-    max-width: none !important;
-
-    min-height: 64px !important;
-    height: 64px !important;
-
-    margin: 0 !important;
-    box-sizing: border-box !important;
-  }
-}
-
-/* ---------------------------------------------------------
-   MOBILE — exact flow fix
-   --------------------------------------------------------- */
-@media (max-width: 680px) {
-
-  .hero {
-    min-height: auto !important;
-    height: auto !important;
-    padding: 18px 0 32px !important;
-    overflow: visible !important;
-  }
-
-  .heroGrid {
-    width: calc(100% - 20px) !important;
-    max-width: none !important;
-    margin: 0 auto !important;
-
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-
-    gap: 0 !important;
-    position: static !important;
-    text-align: left !important;
-  }
-
-  .heroGrid > :first-child {
-    order: 1 !important;
-    width: 100% !important;
-    min-width: 0 !important;
-  }
-
-  /* Header/kicker */
-  .hero .kicker {
-    margin: 0 0 6px !important;
-  }
-
-  /* Heading */
-  .hero h1 {
-    width: 100% !important;
-    max-width: none !important;
-    margin: 0 !important;
-
-    font-size: 36px !important;
-    line-height: 1.02 !important;
-    letter-spacing: -1.4px !important;
-    text-align: left !important;
-  }
-
-  /* Paragraph */
-  .hero .lead {
-    width: 100% !important;
-    max-width: none !important;
-
-    margin: 10px 0 0 !important;
-
-    font-size: 13.5px !important;
-    line-height: 1.55 !important;
-    text-align: left !important;
-  }
-
-  /* Login + Register */
-  .hero .actions {
-    width: 100% !important;
-
-    display: flex !important;
-    flex-direction: column !important;
-    flex-wrap: nowrap !important;
-
-    gap: 5px !important;
-    margin: 15px 0 0 !important;
-
-    align-items: stretch !important;
-    justify-content: flex-start !important;
-  }
-
-  .hero .actions .btn {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: none !important;
-
-    height: 30px !important;
-    min-height: 30px !important;
-    flex: 0 0 30px !important;
-
-    margin: 0 !important;
-    box-sizing: border-box !important;
-
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  /*
-   * The image is the second section after the complete text block.
-   */
-  .heroImage {
-    order: 2 !important;
-
-    width: 100% !important;
-    min-width: 0 !important;
-
-    position: relative !important;
-
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-
-    padding: 0 !important;
-    margin: 15px 0 0 !important;
-    gap: 0 !important;
-
-    text-align: center !important;
-  }
-
-  /* Compact P999-like mobile artwork. */
-  .heroImage img {
-    width: 105px !important;
-    height: 105px !important;
-    max-width: 105px !important;
-    max-height: 105px !important;
-
-    margin: 0 auto !important;
-    display: block !important;
-
-    object-fit: cover !important;
-    transform: none !important;
-  }
-
-  .heroImage::before {
-    width: 145px !important;
-    height: 145px !important;
-
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
-  }
-
-  /*
-   * THIS is the main bug fix.
-   * Regardless of older CTA rules, mobile CTA is static and
-   * participates in the normal vertical flow.
-   */
-  .heroCta {
-    position: static !important;
-    inset: auto !important;
-    float: none !important;
-    transform: none !important;
-
-    width: 100% !important;
-    max-width: none !important;
-
-    min-height: 44px !important;
-    height: 44px !important;
-
-    margin: 13px 0 0 !important;
-    padding: 10px 12px !important;
-
-    box-sizing: border-box !important;
-
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    text-align: center !important;
-    white-space: normal !important;
-  }
-}
-
-/* ---------------------------------------------------------
-   391–680px phones/tablets
-   --------------------------------------------------------- */
-@media (min-width: 391px) and (max-width: 680px) {
-
-  .hero h1 {
-    font-size: 38px !important;
-  }
-
-  .hero .lead {
-    font-size: 14px !important;
-  }
-
-  .hero .actions .btn {
-    height: 34px !important;
-    min-height: 34px !important;
-    flex-basis: 34px !important;
-  }
-
-  .heroImage img {
-    width: 115px !important;
-    height: 115px !important;
-    max-width: 115px !important;
-    max-height: 115px !important;
-  }
-
-  .heroCta {
-    min-height: 46px !important;
-    height: 46px !important;
-  }
-}
-
-/* ---------------------------------------------------------
-   Small phones
-   --------------------------------------------------------- */
-@media (max-width: 390px) {
-
-  .hero {
-    padding: 16px 0 28px !important;
-  }
-
-  .heroGrid {
-    width: calc(100% - 18px) !important;
-  }
-
-  .hero h1 {
-    font-size: 31px !important;
-    letter-spacing: -1px !important;
-  }
-
-  .hero .lead {
-    font-size: 13px !important;
-    line-height: 1.52 !important;
-  }
-
-  .hero .actions {
-    margin-top: 14px !important;
-  }
-
-  .hero .actions .btn {
-    height: 29px !important;
-    min-height: 29px !important;
-    flex-basis: 29px !important;
-  }
-
-  .heroImage {
-    margin-top: 14px !important;
-  }
-
-  .heroImage img {
-    width: 105px !important;
-    height: 105px !important;
-    max-width: 105px !important;
-    max-height: 105px !important;
-  }
-
-  .heroImage::before {
-    width: 140px !important;
-    height: 140px !important;
-  }
-
-  .heroCta {
-    min-height: 43px !important;
-    height: 43px !important;
-    margin-top: 12px !important;
-    font-size: 12px !important;
   }
 }
