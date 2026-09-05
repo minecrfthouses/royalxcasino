@@ -4318,3 +4318,17 @@ h3 {
     bottom: auto !important;
   }
 }
+
+
+/* =========================================================
+   GLOBAL TEXT COLOR — CLEAR WHITE
+   Only changes text color across the website.
+   Existing backgrounds, gradients, borders, spacing,
+   typography, and layout remain unchanged.
+   ========================================================= */
+
+html,
+body,
+body * {
+  color: #ffffff !important;
+}
