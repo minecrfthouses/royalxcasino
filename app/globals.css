@@ -4673,3 +4673,242 @@ body .hero * {
     font-size: 12.5px !important;
   }
 }
+
+
+/* =========================================================
+   P999 MOBILE DIMENSIONS — FINAL OVERRIDE
+   Reference flow observed on p999game.com:
+   heading -> paragraph -> Login -> Register -> image ->
+   Download CTA. Keep Royal X visual styling unchanged.
+   ========================================================= */
+
+/* 1. Clear white text only. */
+body,
+body p,
+body span,
+body a,
+body button,
+body label,
+body li,
+body strong,
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6,
+.hero,
+.hero p,
+.hero span,
+.hero a,
+.hero button,
+.hero h1,
+.hero h2,
+.hero h3,
+.hero h4,
+.hero h5,
+.hero h6 {
+  color: #ffffff !important;
+}
+
+.hero h1,
+.hero h2,
+.hero h3,
+.hero h4,
+.hero h5,
+.hero h6 {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* 2. Mobile geometry. */
+@media (max-width: 767px) {
+
+  .hero {
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 28px 0 38px !important;
+    overflow: visible !important;
+  }
+
+  /* One column, no desktop grid remnants. */
+  .heroGrid {
+    width: calc(100% - 20px) !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 22px !important;
+
+    text-align: left !important;
+  }
+
+  /* Text block is first. */
+  .heroGrid > :first-child {
+    order: 1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: 0 0 auto !important;
+  }
+
+  .hero h1 {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    text-align: left !important;
+
+    font-size: clamp(30px, 8.8vw, 42px) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -1.4px !important;
+  }
+
+  .hero .lead {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 13px 0 0 !important;
+    text-align: left !important;
+
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* P999-style stacked buttons with a small vertical gap. */
+  .hero .actions {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+
+    gap: 6px !important;
+    margin: 18px 0 0 !important;
+
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+  }
+
+  .hero .actions .btn {
+    display: flex !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 42px !important;
+    flex: 0 0 42px !important;
+    margin: 0 !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Image block comes after both buttons. */
+  .heroImage {
+    order: 2 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+
+  /* P999 mobile image is compact and centered. */
+  .heroImage img {
+    width: 145px !important;
+    height: 145px !important;
+    max-width: 145px !important;
+    max-height: 145px !important;
+
+    display: block !important;
+    flex: 0 0 145px !important;
+    object-fit: cover !important;
+    margin: 0 auto !important;
+  }
+
+  .heroImage::before {
+    width: 195px !important;
+    height: 195px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  /* CTA follows the image in normal flow, never beside text. */
+  .heroCta {
+    position: relative !important;
+    inset: auto !important;
+
+    display: flex !important;
+    width: 100% !important;
+    max-width: none !important;
+
+    min-height: 52px !important;
+    height: auto !important;
+
+    margin: 18px 0 0 !important;
+    padding: 13px 16px !important;
+    box-sizing: border-box !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: normal !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .heroGrid {
+    width: calc(100% - 18px) !important;
+    gap: 20px !important;
+  }
+
+  .hero {
+    padding: 25px 0 34px !important;
+  }
+
+  .hero h1 {
+    font-size: 31px !important;
+    letter-spacing: -1.1px !important;
+  }
+
+  .hero .lead {
+    font-size: 13.5px !important;
+    line-height: 1.62 !important;
+  }
+
+  .hero .actions {
+    margin-top: 17px !important;
+    gap: 6px !important;
+  }
+
+  .hero .actions .btn {
+    min-height: 40px !important;
+    flex-basis: 40px !important;
+  }
+
+  .heroImage img {
+    width: 125px !important;
+    height: 125px !important;
+    max-width: 125px !important;
+    max-height: 125px !important;
+    flex-basis: 125px !important;
+  }
+
+  .heroImage::before {
+    width: 175px !important;
+    height: 175px !important;
+  }
+
+  .heroCta {
+    margin-top: 16px !important;
+    min-height: 50px !important;
+  }
+}
