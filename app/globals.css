@@ -724,25 +724,25 @@ h3 {
 
   background:
     linear-gradient(
-      135deg,
-      #f5a524,
-      #ffffff,
-      #f5a524
+      180deg,
+      #ffc861,
+      #f5a524 45%,
+      #dd8f10
     );
 
   border-color:
-    rgba(245,165,36,.75);
+    rgba(7,0,0,.15);
 
   box-shadow:
-    0 8px 30px
-      rgba(245,165,36,.20);
+    0 10px 32px
+      rgba(245,165,36,.35);
 }
 
 .btn.gold:hover {
 
   box-shadow:
-    0 15px 40px
-      rgba(245,165,36,.30);
+    0 15px 42px
+      rgba(245,165,36,.5);
 }
 
 .btn.outline {
@@ -750,10 +750,10 @@ h3 {
   color: #ffffff;
 
   background:
-    rgba(255,255,255,.025);
+    rgba(7,0,0,.4);
 
   border-color:
-    rgba(255,255,255,.13);
+    rgba(245,165,36,.4);
 }
 
 .btn.pill {
@@ -1059,7 +1059,11 @@ h3 {
 
   padding: 17px 20px 19px;
 
-  color: var(--gold);
+  color: #f5a524 !important;
+
+  text-shadow:
+    0 0 18px
+      rgba(245,165,36,.35);
 
   background:
     linear-gradient(
@@ -3739,8 +3743,13 @@ h3 {
 
 .hero .btn:not(.gold) {
   color: #ffffff;
-  background: rgba(255,255,255,.06);
-  border-color: rgba(255,255,255,.18);
+  background: rgba(7,0,0,.55);
+  border: 1px solid rgba(245,165,36,.45);
+}
+
+.hero .btn:not(.gold):hover {
+  background: rgba(7,0,0,.8);
+  border-color: rgba(245,165,36,.75);
 }
 
 
