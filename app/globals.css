@@ -4187,74 +4187,134 @@ h3 {
 
 
 /* =========================================================
-   HERO STRUCTURE — FINAL FIX
-   STRUCTURE ONLY: preserves the existing Royal X design.
+   HERO — P999 REFERENCE STRUCTURE / DIMENSIONS
+   Desktop only: structure + alignment. Existing Royal X
+   colors, typography, effects and button visual styles stay.
 
-   The previous CTA fix used `bottom`, but .heroGrid itself is
-   position: relative. Therefore the CTA was positioned against
-   the bottom of the two-column grid and overlapped the Login/
-   Register row.
-
-   Correct behavior:
-   - .heroGrid remains the two-column row
-   - .heroImage remains the image column
-   - .heroCta is positioned immediately AFTER .heroGrid
-   - CTA spans the complete heroGrid width
+   Reference viewport analyzed: 1366 × 406
+   - outer horizontal inset: 32px
+   - main row: ~300px tall
+   - image: ~225 × 229px
+   - image starts around x=949
+   - Login/Register row: ~772px wide, 32px gap
+   - Download CTA: x=32, width~1288, height~64
+   - CTA sits below the entire two-column row
    ========================================================= */
 
 @media (min-width: 1051px) {
 
-  .heroGrid {
+  .hero {
     position: relative !important;
-    grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr) !important;
-    gap: 70px !important;
-    align-items: center !important;
-
-    /* Reserve space for the CTA so it is part of the hero's
-       visual flow rather than covering the content. */
-    margin-bottom: 72px !important;
+    min-height: 406px !important;
+    height: 406px !important;
+    box-sizing: border-box !important;
+    padding: 28px 0 70px !important;
+    display: block !important;
+    overflow: hidden !important;
   }
 
+  /* Match the reference's 32px page inset rather than the
+     previous 1180px max-width constraint. */
+  .heroGrid {
+    width: calc(100% - 64px) !important;
+    max-width: none !important;
+    margin: 0 32px !important;
+
+    display: grid !important;
+
+    /* At 1366px this produces approximately:
+       left 773px / gap 142px / right 374px. */
+    grid-template-columns: minmax(0, 60%) minmax(0, 29%) !important;
+    column-gap: 11% !important;
+    row-gap: 0 !important;
+
+    align-items: center !important;
+  }
+
+  /* Left content occupies the full reference left column. */
+  .heroGrid > :first-child {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .hero h1 {
+    max-width: 680px !important;
+  }
+
+  .hero .lead {
+    max-width: 775px !important;
+    margin-top: 18px !important;
+  }
+
+  /* Reference: two equal wide buttons with a 32px gap. */
+  .hero .actions {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 32px !important;
+    margin-top: 27px !important;
+  }
+
+  .hero .actions .btn {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+
+  /* Reference image is ~225px square and centered in the
+     right-side column rather than pushed to the edge. */
   .heroImage {
-    position: relative !important;
+    position: static !important;
+    min-width: 0 !important;
+    width: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
+    padding: 0 !important;
   }
 
+  .heroImage img {
+    width: 225px !important;
+    height: 225px !important;
+  }
+
+  .heroImage::before {
+    width: 275px !important;
+    height: 275px !important;
+  }
+
+  /* The CTA is nested inside .heroImage in the existing markup.
+     Make the wrapper non-positioned so the CTA's containing
+     block becomes .hero itself. */
   .heroCta {
     position: absolute !important;
-
-    /* .heroGrid is the containing block. Put the CTA directly
-       below the complete two-column row. */
-    top: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
-
-    width: 100% !important;
-    max-width: none !important;
-    margin: 18px 0 0 !important;
-
-    box-sizing: border-box !important;
     z-index: 10 !important;
+
+    left: 32px !important;
+    right: 32px !important;
+    bottom: 6px !important;
+
+    width: auto !important;
+    max-width: none !important;
+
+    min-height: 64px !important;
+    height: 64px !important;
+
+    margin: 0 !important;
+    box-sizing: border-box !important;
   }
 }
 
+/* Preserve the site's existing responsive design below desktop. */
 @media (max-width: 1050px) {
-
-  .heroGrid {
-    margin-bottom: 0 !important;
+  .hero {
+    height: auto !important;
   }
 
   .heroCta {
     position: relative !important;
-    top: auto !important;
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
-    width: min(100%, 380px) !important;
-    max-width: 380px !important;
-    margin-top: 20px !important;
   }
 }
