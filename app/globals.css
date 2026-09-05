@@ -4187,39 +4187,44 @@ h3 {
 
 
 /* =========================================================
-   HERO STRUCTURE FIX — ALIGNMENT ONLY
-   Keeps existing Royal X colors, typography, spacing language,
-   image styling, button styling and effects.
+   HERO STRUCTURE — DEFINITIVE CTA POSITION FIX
+   Layout only. Existing Royal X visual styling is preserved.
+
+   Desktop structure:
+   LEFT  = kicker + heading + paragraph + Login/Register
+   RIGHT = image
+   BELOW = full-width Download CTA
    ========================================================= */
 
 @media (min-width: 1051px) {
-  /* The wrapper currently owns both the image and Download CTA.
-     Flatten only its layout box so both children can participate
-     in the hero grid independently. */
-  .heroGrid > .heroImage {
-    display: contents !important;
+
+  /* Keep the image wrapper as the right-side grid item.
+     Do NOT let the CTA participate in its flex row. */
+  .heroImage {
+    position: static !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
 
-  /* Image stays in the right column, first row. */
-  .heroGrid > .heroImage > img {
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-    justify-self: center !important;
-    align-self: center !important;
-  }
+  /* The CTA is nested in .heroImage, so make it an absolute
+     child of .hero itself. This lets it span BOTH columns. */
+  .heroCta {
+    position: absolute !important;
+    z-index: 10 !important;
 
-  /* Download CTA becomes the second, full-width row. */
-  .heroGrid > .heroImage > .heroCta {
-    grid-column: 1 / -1 !important;
-    grid-row: 2 !important;
-    justify-self: stretch !important;
-    align-self: start !important;
-    width: 100% !important;
+    left: max(17px, calc((100% - var(--max-width)) / 2)) !important;
+    right: max(17px, calc((100% - var(--max-width)) / 2)) !important;
+    bottom: 24px !important;
+
+    width: auto !important;
     max-width: none !important;
-    margin-top: 22px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
   }
 
-  /* Preserve the existing two-column proportions and gap. */
+  /* Keep the two-column row itself unchanged. */
   .heroGrid {
     grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr) !important;
     gap: 70px !important;
@@ -4227,9 +4232,15 @@ h3 {
   }
 }
 
+/* Existing responsive layout remains intact below desktop. */
 @media (max-width: 1050px) {
-  /* Restore the original wrapper behavior for responsive layouts. */
-  .heroGrid > .heroImage {
-    display: flex !important;
+  .heroCta {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: min(100%, 380px) !important;
+    max-width: 380px !important;
+    margin-top: 20px !important;
   }
 }
