@@ -4187,80 +4187,62 @@ h3 {
 
 
 /* =========================================================
-   HERO — REFERENCE STRUCTURE ONLY (FINAL)
-   Uses the reference for element alignment only.
-   Existing Royal X colors, spacing, typography, effects,
-   button styles and image styles are preserved.
+   47. HERO STRUCTURE FIX — REFERENCE ALIGNMENT ONLY
+   Keeps the existing Royal X colors, typography, effects,
+   spacing language and button styling.
+
+   DOM note:
+   .heroImage contains BOTH the image and .heroCta.
+   display: contents lets those two elements participate
+   directly in .heroGrid so the CTA can sit below BOTH
+   columns, matching the reference structure.
    ========================================================= */
 
 @media (min-width: 1051px) {
-  /* Keep the original two-column hero row. */
+
   .heroGrid {
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr) minmax(300px, .82fr) !important;
-    grid-template-rows: auto auto !important;
-    align-items: center !important;
+    grid-template-columns: minmax(0, 1.65fr) minmax(300px, .9fr);
+    gap: 42px;
+    align-items: center;
   }
 
-  /* The actual text/content column. */
-  .heroGrid > :first-child {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-    min-width: 0 !important;
+  .heroImage {
+    display: contents;
   }
 
-  /* IMPORTANT:
-     The CTA is currently INSIDE .heroImage in the page markup.
-     display: contents lets the image and CTA participate directly
-     in .heroGrid, so the CTA can span BOTH columns. */
-  .heroGrid > .heroImage {
-    display: contents !important;
+  .heroImage img {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
   }
 
-  /* Image stays in the right column, first row. */
-  .heroGrid > .heroImage > img,
-  .heroGrid > .heroImage img {
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-    justify-self: center !important;
-    align-self: center !important;
-  }
-
-  /* CTA moves below BOTH the text and image columns. */
-  .heroGrid > .heroImage > .heroCta,
-  .heroGrid > .heroImage .heroCta {
-    grid-column: 1 / -1 !important;
-    grid-row: 2 !important;
-    justify-self: stretch !important;
-    align-self: start !important;
-    width: 100% !important;
-    max-width: none !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  /* Login/Register remain side-by-side inside the left column. */
-  .hero .actions {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 12px !important;
-  }
-
-  .hero .actions .btn {
-    width: 100% !important;
-    min-width: 0 !important;
+  .heroCta {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: stretch;
+    width: 100%;
+    margin: 24px 0 0;
   }
 }
 
-/* Tablet/mobile: preserve the existing responsive design. */
+
+/* Tablet/mobile: restore normal wrapper behavior so the
+   existing responsive flow is preserved. */
 @media (max-width: 1050px) {
-  .heroGrid > .heroImage {
-    display: flex !important;
-    flex-direction: column !important;
+
+  .heroImage {
+    display: flex;
   }
 
-  .heroGrid > .heroImage .heroCta {
-    width: min(100%, 380px) !important;
-    max-width: 380px !important;
+  .heroImage img {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .heroCta {
+    grid-column: auto;
+    grid-row: auto;
+    width: min(100%, 380px);
   }
 }
