@@ -4187,55 +4187,69 @@ h3 {
 
 
 /* =========================================================
-   HERO STRUCTURE — DEFINITIVE CTA POSITION FIX
-   Layout only. Existing Royal X visual styling is preserved.
+   HERO STRUCTURE — FINAL FIX
+   STRUCTURE ONLY: preserves the existing Royal X design.
 
-   Desktop structure:
-   LEFT  = kicker + heading + paragraph + Login/Register
-   RIGHT = image
-   BELOW = full-width Download CTA
+   The previous CTA fix used `bottom`, but .heroGrid itself is
+   position: relative. Therefore the CTA was positioned against
+   the bottom of the two-column grid and overlapped the Login/
+   Register row.
+
+   Correct behavior:
+   - .heroGrid remains the two-column row
+   - .heroImage remains the image column
+   - .heroCta is positioned immediately AFTER .heroGrid
+   - CTA spans the complete heroGrid width
    ========================================================= */
 
 @media (min-width: 1051px) {
 
-  /* Keep the image wrapper as the right-side grid item.
-     Do NOT let the CTA participate in its flex row. */
+  .heroGrid {
+    position: relative !important;
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr) !important;
+    gap: 70px !important;
+    align-items: center !important;
+
+    /* Reserve space for the CTA so it is part of the hero's
+       visual flow rather than covering the content. */
+    margin-bottom: 72px !important;
+  }
+
   .heroImage {
-    position: static !important;
+    position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
   }
 
-  /* The CTA is nested in .heroImage, so make it an absolute
-     child of .hero itself. This lets it span BOTH columns. */
   .heroCta {
     position: absolute !important;
-    z-index: 10 !important;
 
-    left: max(17px, calc((100% - var(--max-width)) / 2)) !important;
-    right: max(17px, calc((100% - var(--max-width)) / 2)) !important;
-    bottom: 24px !important;
+    /* .heroGrid is the containing block. Put the CTA directly
+       below the complete two-column row. */
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
 
-    width: auto !important;
+    width: 100% !important;
     max-width: none !important;
-    margin: 0 !important;
-    box-sizing: border-box !important;
-  }
+    margin: 18px 0 0 !important;
 
-  /* Keep the two-column row itself unchanged. */
-  .heroGrid {
-    grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr) !important;
-    gap: 70px !important;
-    align-items: center !important;
+    box-sizing: border-box !important;
+    z-index: 10 !important;
   }
 }
 
-/* Existing responsive layout remains intact below desktop. */
 @media (max-width: 1050px) {
+
+  .heroGrid {
+    margin-bottom: 0 !important;
+  }
+
   .heroCta {
     position: relative !important;
+    top: auto !important;
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
