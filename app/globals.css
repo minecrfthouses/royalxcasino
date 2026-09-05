@@ -4187,61 +4187,75 @@ h3 {
 
 
 /* =========================================================
-   47. P999 REFERENCE — LAYOUT / ALIGNMENT ONLY
-   Keeps the existing Royal X colors, spacing, sizing, and element styles.
-   Only adjusts the hero element arrangement to follow the reference layout.
+   46. HERO REFERENCE STRUCTURE — ALIGNMENT ONLY
+   Uses the reference screenshot only for element arrangement.
+   Existing Royal X colors, typography, spacing, sizing, and
+   visual styling remain unchanged.
    ========================================================= */
 
-/* Keep the existing desktop two-column hero structure, with content left and image right. */
-.heroGrid {
-  grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
-  align-items: center;
-}
+/* Desktop structure:
+   LEFT  = heading + paragraph + Login/Register
+   RIGHT = hero image
+   FULL  = Download CTA underneath both columns
+*/
+@media (min-width: 1051px) {
 
-/* Match the reference: Login and Register occupy equal columns. */
-.hero .actions {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: stretch;
-}
-
-.hero .actions .btn {
-  width: 100%;
-}
-
-/* Keep the image on the right side of the desktop hero. */
-.heroImage {
-  order: 0;
-  justify-self: center;
-  align-self: center;
-}
-
-/* Keep the full-width CTA as the final element beneath the hero content. */
-.heroCta {
-  display: block;
-  width: 100%;
-}
-
-@media (max-width: 1050px) {
   .heroGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
     align-items: center;
   }
 
-  .heroImage {
-    order: -1;
+  .heroGrid > .heroImage {
+    grid-column: 2;
+    grid-row: 1;
     justify-self: center;
+    align-self: center;
+  }
+
+  .heroGrid > .heroCta {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    margin-top: 22px;
+  }
+
+  /* Login + Register aligned side-by-side like the reference. */
+  .hero .actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .hero .actions .btn {
+    width: 100%;
   }
 }
 
-@media (max-width: 680px) {
-  .hero .actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
+/* Tablet keeps the existing responsive spacing and stacks naturally. */
+@media (max-width: 1050px) {
 
-@media (max-width: 390px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroGrid > .heroImage {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .heroGrid > .heroCta {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+  }
+
   .hero .actions {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .hero .actions .btn {
+    width: 100%;
   }
 }
