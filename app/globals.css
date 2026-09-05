@@ -4187,58 +4187,59 @@ h3 {
 
 
 /* =========================================================
-   HERO STRUCTURE FIX — REFERENCE ALIGNMENT ONLY
-   Keeps ALL existing Royal X colors, typography, effects,
-   spacing, button styling and image styling.
+   HERO — REFERENCE STRUCTURE ONLY (FINAL)
+   Uses the reference for element alignment only.
+   Existing Royal X colors, spacing, typography, effects,
+   button styles and image styles are preserved.
    ========================================================= */
 
-/* Desktop: left content + right image/CTA area.
-   CTA is kept BELOW the complete hero row, not beside image. */
 @media (min-width: 1051px) {
+  /* Keep the original two-column hero row. */
   .heroGrid {
     display: grid !important;
-    grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr) !important;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, .82fr) !important;
     grid-template-rows: auto auto !important;
-    column-gap: 70px !important;
-    row-gap: 0 !important;
     align-items: center !important;
   }
 
-  /* text/content block */
+  /* The actual text/content column. */
   .heroGrid > :first-child {
     grid-column: 1 !important;
     grid-row: 1 !important;
-    min-width: 0;
+    min-width: 0 !important;
   }
 
-  /* image area */
+  /* IMPORTANT:
+     The CTA is currently INSIDE .heroImage in the page markup.
+     display: contents lets the image and CTA participate directly
+     in .heroGrid, so the CTA can span BOTH columns. */
   .heroGrid > .heroImage {
+    display: contents !important;
+  }
+
+  /* Image stays in the right column, first row. */
+  .heroGrid > .heroImage > img,
+  .heroGrid > .heroImage img {
     grid-column: 2 !important;
     grid-row: 1 !important;
-    min-width: 0;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
+    justify-self: center !important;
+    align-self: center !important;
   }
 
-  /* If CTA is inside .heroImage, move it below the image.
-     It remains the same CTA styling — only its position changes. */
+  /* CTA moves below BOTH the text and image columns. */
+  .heroGrid > .heroImage > .heroCta,
   .heroGrid > .heroImage .heroCta {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-top: 22px !important;
-  }
-
-  /* If CTA is a direct child of the grid, place it full-width below. */
-  .heroGrid > .heroCta {
     grid-column: 1 / -1 !important;
     grid-row: 2 !important;
+    justify-self: stretch !important;
+    align-self: start !important;
     width: 100% !important;
-    margin-top: 22px !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 
-  /* Login/Register remain side-by-side in the left content. */
+  /* Login/Register remain side-by-side inside the left column. */
   .hero .actions {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -4247,43 +4248,19 @@ h3 {
 
   .hero .actions .btn {
     width: 100% !important;
+    min-width: 0 !important;
   }
 }
 
+/* Tablet/mobile: preserve the existing responsive design. */
 @media (max-width: 1050px) {
-  .heroGrid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto !important;
-  }
-
   .heroGrid > .heroImage {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-  }
-
-  .heroGrid > :first-child {
-    grid-column: 1 !important;
-    grid-row: 2 !important;
-  }
-
-  .heroGrid > .heroCta {
-    grid-column: 1 !important;
-    grid-row: 3 !important;
-    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .heroGrid > .heroImage .heroCta {
-    width: 100% !important;
-  }
-
-  .hero .actions {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 12px !important;
-  }
-
-  .hero .actions .btn {
-    width: 100% !important;
+    width: min(100%, 380px) !important;
+    max-width: 380px !important;
   }
 }
