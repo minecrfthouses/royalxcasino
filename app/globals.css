@@ -4185,68 +4185,61 @@ h3 {
   }
 }
 
+
 /* =========================================================
-   ROYAL X HERO — P999 STRUCTURE / DIMENSIONS
-   FINAL CLEAN OVERRIDE
-   =========================================================
+   P999 ALIGNMENT — CLEAN FINAL
+   Built from the ORIGINAL Royal X CSS.
 
-   P999 reference element order:
-   Heading
-   Description
-   Login
-   Register
-   Image
-   Download CTA
+   Mobile reference:
+   Header remains unchanged.
+   Hero content:
+   1) kicker
+   2) heading
+   3) paragraph
+   4) Login
+   5) Register
+   6) centered image
+   7) Download CTA
 
-   Desktop:
-   - 32px outer inset
-   - left text/actions column ≈ 773px at 1366px
-   - large gap before image ≈ 140px
-   - image ≈ 225px square
-   - full-width Download CTA below the row
-
-   Mobile:
-   - ~10px content inset
-   - one column
-   - full-width content/buttons
-   - Login then Register
-   - compact centered image ≈ 105px
-   - CTA below image
+   Critical fix:
+   Download CTA is returned to NORMAL FLOW on mobile.
+   It must never float beside the paragraph.
    ========================================================= */
 
-/* ---------------------------------------------------------
-   GLOBAL TEXT — solid white
-   --------------------------------------------------------- */
-body,
-body p,
-body a,
-body span,
-body button,
-body label,
-body li,
-body strong,
-body h1,
-body h2,
-body h3,
-body h4,
-body h5,
-body h6 {
+/* Clear white hero text without touching background design. */
+.hero,
+.hero p,
+.hero a,
+.hero span,
+.hero button,
+.hero h1,
+.hero h2,
+.hero h3,
+.hero h4,
+.hero h5,
+.hero h6 {
   color: #fff !important;
 }
 
+.hero h1 {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
 /* ---------------------------------------------------------
-   DESKTOP — P999 proportions
+   DESKTOP — two columns + CTA below the entire row
    --------------------------------------------------------- */
 @media (min-width: 1051px) {
 
   .hero {
-    position: relative !important;
     min-height: 406px !important;
     height: 406px !important;
-    box-sizing: border-box !important;
     padding: 28px 0 70px !important;
-    overflow: hidden !important;
     display: block !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
   .heroGrid {
@@ -4259,12 +4252,8 @@ body h6 {
     column-gap: 11% !important;
     row-gap: 0 !important;
 
-    /*
-     * Important: do NOT make .heroGrid the containing block
-     * for the full-width CTA.
-     */
-    position: static !important;
     align-items: center !important;
+    position: static !important;
   }
 
   .heroGrid > :first-child {
@@ -4272,16 +4261,8 @@ body h6 {
     min-width: 0 !important;
   }
 
-  .hero h1 {
-    max-width: 680px !important;
-    margin-top: 12px !important;
-  }
-
   .hero .lead {
-    width: 100% !important;
     max-width: 775px !important;
-    margin-top: 18px !important;
-    line-height: 1.75 !important;
   }
 
   .hero .actions {
@@ -4289,28 +4270,21 @@ body h6 {
     display: flex !important;
     flex-wrap: nowrap !important;
     gap: 32px !important;
-    margin-top: 27px !important;
   }
 
   .hero .actions .btn {
-    width: auto !important;
     min-width: 0 !important;
     flex: 1 1 0 !important;
-    margin: 0 !important;
   }
 
   .heroImage {
     width: 100% !important;
     min-width: 0 !important;
-
     position: relative !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
     align-items: center !important;
-
-    padding: 0 !important;
-    margin: 0 !important;
+    justify-content: center !important;
   }
 
   .heroImage img {
@@ -4320,15 +4294,9 @@ body h6 {
     max-height: 225px !important;
   }
 
-  .heroImage::before {
-    width: 275px !important;
-    height: 275px !important;
-  }
-
   /*
-   * CTA is nested under .heroImage in the existing markup.
-   * Desktop: take it out of that visual column and anchor it
-   * to .hero itself.
+   * Works whether .heroCta is directly inside .heroGrid
+   * or nested in .heroImage.
    */
   .heroCta {
     position: absolute !important;
@@ -4340,6 +4308,7 @@ body h6 {
 
     width: auto !important;
     max-width: none !important;
+
     min-height: 64px !important;
     height: 64px !important;
 
@@ -4349,34 +4318,28 @@ body h6 {
 }
 
 /* ---------------------------------------------------------
-   MOBILE — P999 proportions
+   MOBILE — exact flow fix
    --------------------------------------------------------- */
-@media (max-width: 1050px) {
+@media (max-width: 680px) {
 
   .hero {
     min-height: auto !important;
     height: auto !important;
-    padding: 18px 0 34px !important;
+    padding: 18px 0 32px !important;
     overflow: visible !important;
   }
 
-  /*
-   * Keep the existing wrappers. We do NOT use display:contents.
-   * This avoids the previous nested-CTA positioning failure.
-   */
   .heroGrid {
     width: calc(100% - 20px) !important;
     max-width: none !important;
     margin: 0 auto !important;
 
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr) !important;
-    grid-auto-flow: row !important;
-    gap: 18px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
 
+    gap: 0 !important;
     position: static !important;
-    align-items: start !important;
-    justify-items: stretch !important;
     text-align: left !important;
   }
 
@@ -4386,36 +4349,39 @@ body h6 {
     min-width: 0 !important;
   }
 
-  /* Text */
+  /* Header/kicker */
+  .hero .kicker {
+    margin: 0 0 6px !important;
+  }
+
+  /* Heading */
   .hero h1 {
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
 
+    font-size: 36px !important;
+    line-height: 1.02 !important;
+    letter-spacing: -1.4px !important;
     text-align: left !important;
-    font-size: clamp(28px, 8vw, 38px) !important;
-    line-height: 1.03 !important;
-    letter-spacing: -1.2px !important;
-
-    background: none !important;
-    -webkit-background-clip: initial !important;
-    background-clip: initial !important;
-    -webkit-text-fill-color: #fff !important;
   }
 
+  /* Paragraph */
   .hero .lead {
     width: 100% !important;
     max-width: none !important;
+
     margin: 10px 0 0 !important;
 
-    text-align: left !important;
     font-size: 13.5px !important;
     line-height: 1.55 !important;
+    text-align: left !important;
   }
 
-  /* Buttons: same width, stacked like P999 mobile. */
+  /* Login + Register */
   .hero .actions {
     width: 100% !important;
+
     display: flex !important;
     flex-direction: column !important;
     flex-wrap: nowrap !important;
@@ -4430,23 +4396,22 @@ body h6 {
   .hero .actions .btn {
     width: 100% !important;
     min-width: 0 !important;
+    max-width: none !important;
 
     height: 30px !important;
     min-height: 30px !important;
     flex: 0 0 30px !important;
 
     margin: 0 !important;
-    padding: 6px 12px !important;
+    box-sizing: border-box !important;
 
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    box-sizing: border-box !important;
   }
 
   /*
-   * Image wrapper is the SECOND block.
-   * Therefore image cannot move above the heading/text/buttons.
+   * The image is the second section after the complete text block.
    */
   .heroImage {
     order: 2 !important;
@@ -4455,34 +4420,31 @@ body h6 {
     min-width: 0 !important;
 
     position: relative !important;
+
     display: flex !important;
     flex-direction: column !important;
-
     align-items: center !important;
     justify-content: flex-start !important;
 
-    margin: 0 !important;
     padding: 0 !important;
+    margin: 15px 0 0 !important;
     gap: 0 !important;
+
+    text-align: center !important;
   }
 
-  /*
-   * P999 mobile reference uses a compact image, not the
-   * oversized 175px/145px Royal X image used previously.
-   */
+  /* Compact P999-like mobile artwork. */
   .heroImage img {
     width: 105px !important;
     height: 105px !important;
     max-width: 105px !important;
     max-height: 105px !important;
 
-    flex: 0 0 105px !important;
-
-    display: block !important;
-    object-fit: cover !important;
-
     margin: 0 auto !important;
-    border-radius: 14px !important;
+    display: block !important;
+
+    object-fit: cover !important;
+    transform: none !important;
   }
 
   .heroImage::before {
@@ -4495,17 +4457,15 @@ body h6 {
   }
 
   /*
-   * The CTA MUST remain in normal flow on mobile.
-   * It is inside .heroImage, so it naturally follows the image.
+   * THIS is the main bug fix.
+   * Regardless of older CTA rules, mobile CTA is static and
+   * participates in the normal vertical flow.
    */
   .heroCta {
-    position: relative !important;
-
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    bottom: auto !important;
+    position: static !important;
     inset: auto !important;
+    float: none !important;
+    transform: none !important;
 
     width: 100% !important;
     max-width: none !important;
@@ -4528,7 +4488,39 @@ body h6 {
 }
 
 /* ---------------------------------------------------------
-   SMALL PHONES — scale P999 down proportionally
+   391–680px phones/tablets
+   --------------------------------------------------------- */
+@media (min-width: 391px) and (max-width: 680px) {
+
+  .hero h1 {
+    font-size: 38px !important;
+  }
+
+  .hero .lead {
+    font-size: 14px !important;
+  }
+
+  .hero .actions .btn {
+    height: 34px !important;
+    min-height: 34px !important;
+    flex-basis: 34px !important;
+  }
+
+  .heroImage img {
+    width: 115px !important;
+    height: 115px !important;
+    max-width: 115px !important;
+    max-height: 115px !important;
+  }
+
+  .heroCta {
+    min-height: 46px !important;
+    height: 46px !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   Small phones
    --------------------------------------------------------- */
 @media (max-width: 390px) {
 
@@ -4538,7 +4530,6 @@ body h6 {
 
   .heroGrid {
     width: calc(100% - 18px) !important;
-    gap: 16px !important;
   }
 
   .hero h1 {
@@ -4553,7 +4544,6 @@ body h6 {
 
   .hero .actions {
     margin-top: 14px !important;
-    gap: 5px !important;
   }
 
   .hero .actions .btn {
@@ -4562,12 +4552,15 @@ body h6 {
     flex-basis: 29px !important;
   }
 
+  .heroImage {
+    margin-top: 14px !important;
+  }
+
   .heroImage img {
     width: 105px !important;
     height: 105px !important;
     max-width: 105px !important;
     max-height: 105px !important;
-    flex-basis: 105px !important;
   }
 
   .heroImage::before {
