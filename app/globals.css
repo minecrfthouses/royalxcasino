@@ -1642,3 +1642,274 @@ h3{
     height:190px;
   }
 }
+
+
+/* =========================================================
+   ROYAL X — PAYMENT / FEATURE BOXES
+   Designed to reproduce the clean 4-card section style
+   shown in the competitor screenshot.
+   ========================================================= */
+
+.paymentGrid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:20px;
+  margin:22px 0 10px;
+}
+
+.paymentCard{
+  position:relative;
+  min-width:0;
+  padding:24px 20px 20px;
+  background:#fff;
+  border:1px solid #dedede;
+  border-radius:11px;
+  box-shadow:0 3px 10px rgba(0,0,0,.06);
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    border-color .2s ease;
+}
+
+.paymentCard:hover{
+  transform:translateY(-3px);
+  border-color:var(--gold);
+  box-shadow:0 10px 24px rgba(0,0,0,.09);
+}
+
+.paymentCard.featured{
+  border-color:var(--gold);
+}
+
+.paymentIcon{
+  width:47px;
+  height:47px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:17px;
+  border-radius:10px;
+  color:#fff;
+  font-size:14px;
+  font-weight:900;
+  line-height:1;
+}
+
+.paymentIcon.easypaisa{
+  background:#00b900;
+}
+
+.paymentIcon.jazzcash{
+  background:#ed3035;
+}
+
+.paymentIcon.bank{
+  background:#1768c5;
+}
+
+.paymentIcon.usdt{
+  background:#27a47f;
+}
+
+.paymentCard h3{
+  margin:0 0 10px;
+  color:#151515;
+  font-size:16px;
+  line-height:1.35;
+  font-weight:900;
+  border:0;
+  padding:0;
+}
+
+.paymentCard p{
+  margin:0 0 14px;
+  color:#454545;
+  font-size:13.5px;
+  line-height:1.65;
+}
+
+.paymentMeta{
+  display:grid;
+  gap:7px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+
+.paymentMeta li{
+  position:relative;
+  padding-left:15px;
+  margin:0 !important;
+  color:#333;
+  font-size:12.5px;
+  line-height:1.5;
+}
+
+.paymentMeta li::before{
+  content:"›";
+  position:absolute;
+  left:0;
+  top:0;
+  color:var(--gold-dark);
+  font-size:17px;
+  font-weight:900;
+}
+
+/* Generic premium card grid for other sections */
+
+.premiumGrid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;
+  margin:22px 0;
+}
+
+.premiumBox{
+  background:#fff;
+  border:1px solid #dedede;
+  border-radius:11px;
+  padding:22px;
+  box-shadow:0 3px 10px rgba(0,0,0,.05);
+  transition:.2s ease;
+}
+
+.premiumBox:hover{
+  transform:translateY(-3px);
+  border-color:var(--gold);
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
+}
+
+.premiumBox h3{
+  margin:0 0 9px;
+  font-size:16px;
+  line-height:1.35;
+}
+
+.premiumBox p{
+  margin:0;
+  color:#555;
+  font-size:13.5px;
+  line-height:1.65;
+}
+
+/* Compact icon cards */
+
+.iconGrid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;
+  margin:22px 0;
+}
+
+.iconBox{
+  background:#fff;
+  border:1px solid #dedede;
+  border-radius:11px;
+  padding:20px;
+  box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
+
+.iconBoxIcon{
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:12px;
+  border-radius:9px;
+  background:var(--gold-soft);
+  color:var(--gold-dark);
+  font-size:19px;
+  font-weight:900;
+}
+
+.iconBox h3{
+  margin:0 0 7px;
+  font-size:15px;
+}
+
+.iconBox p{
+  margin:0;
+  color:#666;
+  font-size:13px;
+  line-height:1.55;
+}
+
+/* Bonus cards */
+
+.bonusGrid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+  margin:22px 0;
+}
+
+.bonusCard{
+  overflow:hidden;
+  background:#fff;
+  border:1px solid #dedede;
+  border-radius:11px;
+  box-shadow:0 3px 10px rgba(0,0,0,.05);
+  transition:.2s ease;
+}
+
+.bonusCard:hover{
+  transform:translateY(-3px);
+  border-color:var(--gold);
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
+}
+
+.bonusCard img{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  background:#f2f2f2;
+}
+
+.bonusBody{
+  padding:17px;
+}
+
+.bonusBody h3{
+  margin:0 0 7px;
+  font-size:16px;
+}
+
+.bonusBody p{
+  margin:0;
+  color:#666;
+  font-size:13px;
+  line-height:1.6;
+}
+
+/* Responsive payment / card boxes */
+
+@media(max-width:1000px){
+  .paymentGrid,
+  .iconGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .premiumGrid,
+  .bonusGrid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:650px){
+  .paymentGrid,
+  .premiumGrid,
+  .iconGrid,
+  .bonusGrid{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+
+  .paymentCard{
+    padding:20px;
+  }
+
+  .paymentIcon{
+    margin-bottom:14px;
+  }
+}
