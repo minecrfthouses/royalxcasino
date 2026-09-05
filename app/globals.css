@@ -1,9 +1,3 @@
-/* =========================================================
-   ROYAL X CASINO
-   NEON ROYAL GAMING THEME
-   Complete drop-in style.css
-   (HERO SECTION REBUILT — P999 STRUCTURAL LAYOUT)
-   ========================================================= */
 
 
 /* =========================================================
@@ -1061,10 +1055,6 @@ h3 {
 
   color: #FBBA49 !important;
 
-  text-shadow:
-    0 0 18px
-      rgba(251,186,73,.35);
-
   background:
     linear-gradient(
       135deg,
@@ -1137,7 +1127,7 @@ h3 {
 
   padding: 9px 0 9px 16px;
 
-  color: #070000;
+  color: #FBBA49 !important;
 
   border-left:
     3px solid
